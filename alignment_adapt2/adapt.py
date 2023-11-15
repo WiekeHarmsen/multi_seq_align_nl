@@ -26,7 +26,7 @@ import numpy as np
 import pandas as pd
 import re
 
-zero_char = '-'       # 'zero' character for insertions/deletions.
+zero_char = '*'       # 'zero' character for insertions/deletions.
 wbnd_char = '|'       # 'word boundary' character in transcriptions.
 
 features_file = "./alignment_adapt2/featuresYAPA.txt";  # data file containing grapheme features.
