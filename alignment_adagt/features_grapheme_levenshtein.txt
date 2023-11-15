@@ -1,0 +1,48 @@
+ ADAPT GRAPHEME FEATURE DATA
+
+   Example grapheme feature definitions for the Dutch language.
+   Based on the phoneme feature definitions for the Dutch language C. Cucchiarini (1993).
+   Also see the ADAPT algorithm from which ADAPT was derived:
+   B. Elffers, C. Van Bael, H. Strik (2005).
+   ADAPT: Algorithm for Dynamic Alignment of Phonetic Transcriptions.
+   Internal report, Department of Language & Speech, University of Nijmegen.
+   http://hstrik.ruhosting.nl/wordpress/wp-content/uploads/2013/03/a121-adapt.pdf
+
+   Notes:
+   - Phonemes Z, G, X from the consonants and @, 5, 6, 7, 8, 9, % cannot be easily distinguished
+     in their grapheme forms. Therefore they are not considered in the below definitions. 
+   - blank lines in this file are ignored; lines starting in whitespace are comments.
+
+ CONSONANT DEFINITIONS
+
+ 	p	b	t	d	k	g	f	v	s	z	m   	n   	l   	r   	q   	j   	h   	c   	x
+p	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+b	0.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+t	0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+d	0.0	0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+k	0.0	0.0	0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+g	0.0	0.0	0.0	0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+f	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+v	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+s	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+z	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+m	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+n	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+l	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0
+r	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0
+w	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	1.0	0.0	0.0	0.0	0.0
+j	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	1.0	0.0	0.0	0.0
+h	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0 	0.0	0.0	0.0	0.0	0.0	1.0	0.0	0.0
+c	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0
+x	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0 	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0
+
+ VOWEL DEFINITIONS
+
+	i   	y   	e   	a   	o   	u   	é				
+i	1.0	0.0	0.0	0.0	0.0 	0.0	0.0
+y	0.0	1.0	0.0	0.0	0.0 	0.0	0.0
+e	0.0	0.0	1.0	0.0	0.0 	0.0	0.0
+a	0.0	0.0	0.0	1.0	0.0 	0.0	0.0
+o	0.0	0.0	0.0	0.0	1.0 	0.0	0.0
+u	0.0	0.0	0.0	0.0	0.0 	1.0	0.0
+é	0.0	0.0	0.0	0.0	0.0 	0.0	1.0
