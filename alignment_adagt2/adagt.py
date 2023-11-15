@@ -25,13 +25,13 @@ from os import path
 import numpy as np
 import pandas as pd
 import re
-from alignment_adagt import string_manipulations as strman
+from alignment_adagt2 import string_manipulations as strman
 
 zero_char = '*'       # 'zero' character for insertions/deletions.
 wbnd_char = '|'       # 'word boundary' character in transcriptions.
 
 # data file containing grapheme features.
-features_file = "./alignment_adagt/features_grapheme_levenshtein.txt"
+features_file = "./alignment_adagt2/features_grapheme_levenshtein.txt"
 assert os.path.exists(
     features_file), "ADAGT error: Cannot find file " + features_file
 
@@ -224,7 +224,7 @@ def align_reversed(ref_line, hyp_line):
     for sel in selection_list:
         align_ref_rev = align_ref_rev[:sel[0]] + \
             "|" + align_ref_rev[sel[0] + 1:]
-        align_ref_rev = align_ref_rev[:sel[1]-1] + "-" + align_ref_rev[sel[1]:]
+        align_ref_rev = align_ref_rev[:sel[1]-1] + zero_char + align_ref_rev[sel[1]:]
 
     return align_ref_rev, align_hyp_rev
 

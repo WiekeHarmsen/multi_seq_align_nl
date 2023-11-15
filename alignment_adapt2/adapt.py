@@ -29,7 +29,7 @@ import re
 zero_char = '-'       # 'zero' character for insertions/deletions.
 wbnd_char = '|'       # 'word boundary' character in transcriptions.
 
-features_file = "./alignment_adapt/featuresYAPA.txt";  # data file containing grapheme features.
+features_file = "./alignment_adapt2/featuresYAPA.txt";  # data file containing grapheme features.
 assert os.path.exists(features_file), "ADAPT error: Cannot find file " +features_file
 
 num_con_feats = 11   # number of feature values per consonant

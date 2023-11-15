@@ -5,16 +5,16 @@ import glob
 import re
 
 # ADAPT
-import alignment_adapt.run_adapt as run_adapt
-import alignment_adapt.cgn2_adapt_map as cgn2_adapt_map
-import alignment_adapt.deduce_pcus_orig_phon as deduce_pcus
+import alignment_adapt2.run_adapt as run_adapt
+import alignment_adapt2.cgn2_adapt_map as cgn2_adapt_map
+import alignment_adapt2.deduce_pcus_orig_phon as deduce_pcus
 
 #ADAGT
-import alignment_adagt.adagt as adagt
-import alignment_adagt.deduce_pcus_orig_graph as deduce_pcus_graph
+import alignment_adagt2.adagt as adagt
+import alignment_adagt2.deduce_pcus_orig_graph as deduce_pcus_graph
 
 # APGA 
-import alignment_graph_phon.graph_phon_alignment as gpa
+import alignment_graph_phon2.graph_phon_alignment as gpa
 
 
 def run(args):
@@ -38,7 +38,6 @@ def run(args):
 
         assert target_graph != None and realised_graph != None, "To use type \"adapt\" both \"target_graph\" and \"realised_graph\" need to be specified."
 
-        # ADAPT uses '-' for ins/del
         align_target_phon_cgn2, align_realised_phon_cgn2, align_target_phon_adapt, align_realised_phon_adapt = run_adapt.reverse_align_two_phone_strings(target_phon, realised_phon)
         
         print("OUTPUTS in CGN2 CPA")
@@ -84,8 +83,9 @@ def run(args):
         
     elif(alignmentType == 'multi_phon'):
 
-        assert target_graph != None and target_phon != None, "To use type \"multi\" both \"target_graph\", \"realised_graph\" and \"target_phon\" need to be specified."
+        assert target_graph != None and target_phon != None and realised_phon != None, "To use type \"multi\" both \"target_graph\", \"target_phon\" and \"realised_phon\" need to be specified."
 
+        print(target_phon, realised_phon)
         # ADAPT alignment
         align_target_phon_cgn2, align_realised_phon_cgn2, align_target_phon_adapt, align_realised_phon_adapt = run_adapt.reverse_align_two_phone_strings(target_phon, realised_phon)
 
@@ -93,18 +93,16 @@ def run(args):
         pcu_target_graph, pcu_target_phon = gpa.align_word_and_phon_trans(target_graph, target_phon)
 
         # Combine output alignments from ADAPT and APGA
-        multi_target_graph, multi_target_phon_adapt, multi_realised_phon_adapt = deduce_pcus.computePCUs(align_target_phon_adapt, align_realised_phon_adapt, pcu_target_graph, pcu_target_phon, '-')
+        multi_target_phon, multi_target_graph, multi_realised_phon = deduce_pcus.computePCUs(align_target_phon_adapt, align_realised_phon_adapt, pcu_target_graph, pcu_target_phon, '*')
 
-        # Postprocess
-        multi_target_phon_cgn2 = [cgn2_adapt_map.adapt_to_cgn2_dict[phone] for phone in multi_target_phon_adapt[0]]
-        multi_realised_phon_cgn2 = [cgn2_adapt_map.adapt_to_cgn2_dict[phone] for phone in multi_realised_phon_adapt[0]]
-
-        print(multi_target_graph, multi_target_phon_cgn2, multi_realised_phon_cgn2)
-
+        print(align_target_phon_cgn2, align_realised_phon_cgn2)
+        print(align_target_phon_adapt, align_realised_phon_adapt)
+        print(pcu_target_graph, pcu_target_phon)
+        print(multi_target_phon, multi_target_graph, multi_realised_phon)
 
 def main():
     parser = argparse.ArgumentParser("Message")
-    parser.add_argument("--type", type=str, help = "Choose your type of alignment: adapt, adagt, apga or multi")
+    parser.add_argument("--type", type=str, help = "Choose your type of alignment: adapt, adagt, apga or multi_graph or multi_phon")
     parser.add_argument("--target_graphemes", type=str, help = "A string containing the target (correct) transcription. This is a grapheme string.")
     parser.add_argument("--target_phonemes", type=str, help = "A string containing the CGN2 phonetic transcription of the grapheme transcription of the target, specified in \'target_graphemes\', e.g. \"k EI k @\" ")
     parser.add_argument("--realised_graphemes", type=str, help = "A string containing The realised (incorrect) grapheme transcription. This is a grapheme string.")

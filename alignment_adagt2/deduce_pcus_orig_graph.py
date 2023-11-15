@@ -1,4 +1,4 @@
-import constants.constants_basiscript as constants
+import constants2.constants_basiscript as constants
  
 """
 Gets the aligned target and original word as a string. 
@@ -77,7 +77,7 @@ def computePCUs(target_align, original_align, target_graph_align, target_phon_al
             target_graph_align   = combine_pcus(target_graph_align, mergeList[i])
             target_phon_align    = combine_pcus(target_phon_align, mergeList[i])
 
-        # Remove "-" if necessary
+        # Remove zero_char if necessary
         target_phon_align = [x.replace(constants.zero_char, "") for x in target_phon_align]
         target_phon_align = [constants.zero_char if x == "" else x for x in target_phon_align]
         target_phon_align = [x.replace(constants.place_holder_char, constants.zero_char) for x in target_phon_align]
@@ -117,7 +117,7 @@ def remove_redundant_wordboundaries(target_phonemes, target_graphemes, original_
 
 
 """
-This function adds an insertion ("-") at a specific index in the list.
+This function adds an insertion (zero_char) at a specific index in the list.
 graphemes_align  Premilinary list of target constants.pcus
 idx_char          Index for insertion
 """
@@ -177,11 +177,11 @@ def get_pcu_boundaries(graphemes_align):
 This function projects the target boundaries onto the original.
 original               Original transcription
 spans                  PCU indexes from target
-phon_not_written_idxs  Indexes at which ("-") should be added (in case of not written phoneme)
+phon_not_written_idxs  Indexes at which zero_char should be added (in case of not written phoneme)
 """
 def set_pcu_boundaries(original_align, target_align, target_phon_align, spans, phon_not_written_idxs):
 
-    # Add "-" to original at phon_not_written idxs
+    # Add "zero_char" to original at phon_not_written idxs
     for i in phon_not_written_idxs:
         if i < len(original_align):
             if original_align[i] != constants.zero_char:

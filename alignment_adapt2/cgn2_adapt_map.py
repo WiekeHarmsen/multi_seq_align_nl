@@ -42,7 +42,6 @@ adapt_to_cgn2_dict = {
     "3":"AU", #ou_in_goud
     "4":"E2", #e_in_creme
     "6":"O", #o_in_roze
-    "-":"*", #insertion/deletion
     "*":"*", #insertion/deletion
 }
 
@@ -88,8 +87,7 @@ cgn2_to_adapt_dict = {
     "AU":"3", #ou_in_goud
     "E2":"4", #e_in_creme
     "O":"6", #o_in_roze
-    "-":"-", #insertion/deletion
-    "*":"-", #insertion/deletion
+    "*":"*", #insertion/deletion
 }
 
 def cgn2string_to_adaptstring(cgn2_string):

@@ -11,7 +11,7 @@ graph_align, phon_align = gpa.align_word_and_phon_trans("thuis", "t UI s")
 """
 
 import numpy as np
-import constants.constants_basiscript as constants
+import constants2.constants_basiscript as constants
 
 """
 This function creates three possibilities of grapheme strings that could match the phoneme.

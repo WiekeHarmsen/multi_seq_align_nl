@@ -41,7 +41,7 @@ def normalizeText(s):
 
 
 def removeInsertions(s):
-    return s.replace("-", "")
+    return s.replace("*", "")
 
 
 def trimPipesAndSpaces(s):

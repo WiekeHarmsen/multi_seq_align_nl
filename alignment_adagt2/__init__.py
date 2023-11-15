@@ -1,7 +1,7 @@
-from alignment_adagt import adagt
+from alignment_adagt2 import adagt
 import pandas as pd
-from alignment_adagt import adagt_postprocess as adagt_post
-from alignment_adagt import string_manipulations as strman
+from alignment_adagt2 import adagt_postprocess as adagt_post
+from alignment_adagt2 import string_manipulations as strman
 
 
 def thisIsATest():
