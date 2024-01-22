@@ -25,7 +25,7 @@ This algorithm is made by Wieke Harmsen, see [this paper by Harmsen et al. (2021
 python3 run.py --type 'apga' --target_graphemes 'kijken' --target_phonemes 'k EI k @'
 '''
 
-## Multiple sequence alignment: AGPA & ADAGT
+## Multiple sequence alignment: AGPA & ADAGT 
 Used for spelling error detection, see [this paper by Harmsen et al. (2021), section 2.3.3 'Deduce PCU segmentation' (p. 289)]({https://www.clinjournal.org/clinj/article/view/140).
 
 '''
@@ -55,6 +55,7 @@ python3 run.py --type 'multi_phon' --target_graphemes 'kijken' --target_phonemes
   isbn         = {9090066993},
   url           = {https://lib.ugent.be/catalog/rug01:000310899}
 }
+
 @article{Cucchiarini1996,
     title = {{Assessing Transcription Agreement: {M}ethodological Aspects}},
     year = {1996},
@@ -63,4 +64,15 @@ python3 run.py --type 'multi_phon' --target_graphemes 'kijken' --target_phonemes
     pages = {131-155},
     volume = {10},
     doi = {https://doi.org/10.3109/02699209608985167},
+}
+
+@article{Harmsen2021,
+    title={Automatic Detection and Annotation of Spelling Errors and Orthographic Properties in the Dutch BasiScript Corpus}, 
+    volume={11}, 
+    url={https://www.clinjournal.org/clinj/article/view/140}, 
+    journal={Computational Linguistics in the Netherlands Journal}, 
+    author={Harmsen, Wieke Noa and Cucchiarini, Catia and Strik, Helmer}, 
+    year={2021}, 
+    month={Dec.}, 
+    pages={281–306}
 }
