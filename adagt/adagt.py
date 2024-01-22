@@ -25,13 +25,13 @@ from os import path
 import numpy as np
 import pandas as pd
 import re
-from alignment_adagt2 import string_manipulations as strman
+from adagt import string_manipulations as strman
 
 zero_char = '*'       # 'zero' character for insertions/deletions.
 wbnd_char = '|'       # 'word boundary' character in transcriptions.
 
 # data file containing grapheme features.
-features_file = "./alignment_adagt2/features_grapheme_levenshtein.txt"
+features_file = "./adagt/features_grapheme_levenshtein.txt"
 assert os.path.exists(
     features_file), "ADAGT error: Cannot find file " + features_file
 

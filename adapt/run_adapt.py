@@ -1,6 +1,6 @@
-import alignment_adapt2.cgn2_adapt_map as cgn2_to_adapt
-import alignment_adapt2.adapt as adapt
-import alignment_adagt2.string_manipulations as strman
+import adapt.cgn2_adapt_map as cgn2_to_adapt
+import adapt.adapt as adapt
+import adagt.string_manipulations as strman
 
 """
 Function that converts two CGN2 phoneme strings to ADAPT phoneme strings, reverses them, aligns them using ADAPT and reverses the alignments back.

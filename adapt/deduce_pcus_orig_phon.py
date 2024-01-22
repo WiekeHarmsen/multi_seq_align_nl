@@ -1,4 +1,4 @@
-import constants2.constants_basiscript as constants
+import constants.constants_basiscript as constants
 
 """
 Gets the aligned target and original word as a string. 
