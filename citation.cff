@@ -1,0 +1,14 @@
+cff-version: 1.0.0
+message: If you use this software, please cite it using these metadata.
+title: Algorithm for Dutch Multiple Sequence Alignment of Phoneme and Grapheme Strings
+authors:
+  - family-names: Harmsen
+    given-names: Wieke
+    orcid: " https://orcid.org/0000-0002-3329-2201"
+  - family-names: Cucchiarini
+    given-names: Catia
+  - family-names: Strik
+    given-names: Helmer
+version: 1.0
+date-released: "2023-01-22"
+repository-code: "https://github.com/WiekeHarmsen/multi_seq_align_nl"
