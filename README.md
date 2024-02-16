@@ -22,7 +22,7 @@ This adaptation is made by Wieke Harmsen, see [this paper by Harmsen et al. (202
 ## APGA: Algorithm for Phoneme-Grapheme alignment
 This algorithm is made by Wieke Harmsen, see [this paper by Harmsen et al. (2021), section 2.3.2 'Phoneme-grapheme alignment' (p. 289)]({https://www.clinjournal.org/clinj/article/view/140).
 
-    python3 run.py --type 'apga' --target_graphemes 'kijken' --target_phonemes 'k EI k @'
+    python3 run.py --type 'gpa' --target_graphemes 'kijken' --target_phonemes 'k EI k @'
 
 
 ## Multiple sequence alignment: AGPA & ADAGT 

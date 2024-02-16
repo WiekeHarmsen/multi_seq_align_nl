@@ -25,11 +25,13 @@ from os import path
 import numpy as np
 import pandas as pd
 import re
+import sys
 
 zero_char = '*'       # 'zero' character for insertions/deletions.
 wbnd_char = '|'       # 'word boundary' character in transcriptions.
 
-features_file = "./adapt/featuresYAPA.txt";  # data file containing grapheme features.
+script_directory = os.path.dirname(os.path.abspath(sys.argv[0])) 
+features_file = os.path.join(script_directory, "adapt/featuresYAPA.txt")  # data file containing grapheme features.
 assert os.path.exists(features_file), "ADAPT error: Cannot find file " +features_file
 
 num_con_feats = 11   # number of feature values per consonant

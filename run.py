@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import glob
 import re
+import json
 
 # ADAPT
 import adapt.run_adapt as run_adapt
@@ -28,11 +29,11 @@ def run(args):
     realised_graph = args.realised_graphemes
     realised_phon = args.realised_phonemes
 
-    print("INPUTS")
-    print("target_graphemes: ", target_graph)
-    print("target_phonemes: ", target_phon)
-    print("realised_graphemes: ", realised_graph)
-    print("realised_phonemes: ", realised_phon)
+    # print("INPUTS")
+    # print("target_graphemes: ", target_graph)
+    # print("target_phonemes: ", target_phon)
+    # print("realised_graphemes: ", realised_graph)
+    # print("realised_phonemes: ", realised_phon)
 
     if(alignmentType == 'adapt'):
         assert target_phon != None and realised_phon != None, "To use type \"adapt\" both \"target_phonemes\" and \"realised_phonemes\" need to be specified."
@@ -40,21 +41,28 @@ def run(args):
         align_target_phon_cgn2, align_realised_phon_cgn2, align_target_phon_adapt, align_realised_phon_adapt = run_adapt.reverse_align_two_phone_strings(target_phon, realised_phon)
         
         print("OUTPUTS in CGN2 CPA")
-        print(align_target_phon_cgn2)
-        print(align_realised_phon_cgn2)
+        # print(align_target_phon_cgn2)
+        # print(align_realised_phon_cgn2)
 
         print("OUTPUTS in ADAPT CPA")
-        print(align_target_phon_adapt)
-        print(align_realised_phon_adapt)
+        # print(align_target_phon_adapt)
+        # print(align_realised_phon_adapt)
 
     elif(alignmentType == 'adagt'):
         assert target_graph != None and realised_graph != None, "To use type \"adagt\" both \"target_graph\" and \"realised_graph\" need to be specified."
 
         align_target_graph, align_realised_graph = adagt.align(target_graph, realised_graph)
         
-        print("OUTPUTS")
-        print(align_target_graph)
-        print(align_realised_graph)
+        # print("OUTPUTS")
+        # print(align_target_graph)
+        # print(align_realised_graph)
+        output_adagt = {"target_graphemes": target_graph,
+                              "target_phonemes": target_phon,
+                              "realised_graphemes": realised_graph,
+                              "realised_phonemes": realised_phon,
+                              "align_target_graph": align_target_graph,
+                              "align_realised_graph": align_realised_graph}
+        print(output_adagt)
 
     elif(alignmentType == 'gpa'):
 
@@ -62,7 +70,14 @@ def run(args):
 
         pcu_target_graph, pcu_target_phon = gpa.align_word_and_phon_trans(target_graph, target_phon)
 
-        print(pcu_target_graph, pcu_target_phon)
+        # print('output', pcu_target_graph, pcu_target_phon)
+        output_gpa = {"target_graphemes": target_graph,
+                              "target_phonemes": target_phon,
+                              "realised_graphemes": realised_graph,
+                              "realised_phonemes": realised_phon,
+                              "pcu_target_graph": pcu_target_graph,
+                              "pcu_target_phon": pcu_target_phon}
+        print(json.dumps(output_gpa))
 
     elif(alignmentType == 'multi_graph'):
 
@@ -97,6 +112,7 @@ def run(args):
         print(align_target_phon_adapt, align_realised_phon_adapt)
         print(pcu_target_graph, pcu_target_phon)
         print(multi_target_phon, multi_target_graph, multi_realised_phon)
+
 
 def main():
     parser = argparse.ArgumentParser("Message")

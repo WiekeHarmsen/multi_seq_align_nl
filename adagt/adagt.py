@@ -26,12 +26,14 @@ import numpy as np
 import pandas as pd
 import re
 from adagt import string_manipulations as strman
+import sys
 
 zero_char = '*'       # 'zero' character for insertions/deletions.
 wbnd_char = '|'       # 'word boundary' character in transcriptions.
 
 # data file containing grapheme features.
-features_file = "./adagt/features_grapheme_levenshtein.txt"
+script_directory = os.path.dirname(os.path.abspath(sys.argv[0])) 
+features_file = os.path.join(script_directory, "adagt/features_grapheme_levenshtein.txt")
 assert os.path.exists(
     features_file), "ADAGT error: Cannot find file " + features_file
 
