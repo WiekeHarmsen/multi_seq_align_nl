@@ -12,6 +12,7 @@ import adapt.deduce_pcus_orig_phon as deduce_pcus
 
 #ADAGT
 import adagt.adagt as adagt
+import adagt.adagt_punct as adagt_punct
 import adagt.deduce_pcus_orig_graph as deduce_pcus_graph
 
 # APGA 
@@ -29,6 +30,13 @@ def run(args):
     realised_graph = args.realised_graphemes
     realised_phon = args.realised_phonemes
 
+    outputDict = {}
+    outputDict['input'] = {"target_graphemes": target_graph,
+                              "target_phonemes": target_phon,
+                              "realised_graphemes": realised_graph,
+                              "realised_phonemes": realised_phon
+                            }
+
     # print("INPUTS")
     # print("target_graphemes: ", target_graph)
     # print("target_phonemes: ", target_phon)
@@ -40,29 +48,32 @@ def run(args):
 
         align_target_phon_cgn2, align_realised_phon_cgn2, align_target_phon_adapt, align_realised_phon_adapt = run_adapt.reverse_align_two_phone_strings(target_phon, realised_phon)
         
-        print("OUTPUTS in CGN2 CPA")
+        # print("OUTPUTS in CGN2 CPA")
         # print(align_target_phon_cgn2)
         # print(align_realised_phon_cgn2)
 
-        print("OUTPUTS in ADAPT CPA")
+        # print("OUTPUTS in ADAPT CPA")
         # print(align_target_phon_adapt)
         # print(align_realised_phon_adapt)
+        output_adapt = {"align_target_phon_cgn2": align_target_phon_cgn2,
+                        "align_realised_phon_cgn2": align_realised_phon_cgn2,
+                        "align_target_phon_adapt": align_target_phon_adapt,
+                        "align_realised_phon_adapt": align_realised_phon_adapt,
+                        }
+                        
+        outputDict['adapt_alignment'] = output_adapt
 
     elif(alignmentType == 'adagt'):
         assert target_graph != None and realised_graph != None, "To use type \"adagt\" both \"target_graph\" and \"realised_graph\" need to be specified."
 
-        align_target_graph, align_realised_graph = adagt.align(target_graph, realised_graph)
+        align_target_graph, align_realised_graph = adagt_punct.align(target_graph, realised_graph)
         
         # print("OUTPUTS")
         # print(align_target_graph)
         # print(align_realised_graph)
-        output_adagt = {"target_graphemes": target_graph,
-                              "target_phonemes": target_phon,
-                              "realised_graphemes": realised_graph,
-                              "realised_phonemes": realised_phon,
-                              "align_target_graph": align_target_graph,
-                              "align_realised_graph": align_realised_graph}
-        print(output_adagt)
+        output_adagt = {"align_target_graph": align_target_graph,
+                        "align_realised_graph": align_realised_graph}
+        outputDict['adagt_alignment'] = output_adagt
 
     elif(alignmentType == 'gpa'):
 
@@ -71,20 +82,16 @@ def run(args):
         pcu_target_graph, pcu_target_phon = gpa.align_word_and_phon_trans(target_graph, target_phon)
 
         # print('output', pcu_target_graph, pcu_target_phon)
-        output_gpa = {"target_graphemes": target_graph,
-                              "target_phonemes": target_phon,
-                              "realised_graphemes": realised_graph,
-                              "realised_phonemes": realised_phon,
-                              "pcu_target_graph": pcu_target_graph,
-                              "pcu_target_phon": pcu_target_phon}
-        print(json.dumps(output_gpa))
+        output_gpa = {"pcu_target_graph": pcu_target_graph,
+                      "pcu_target_phon": pcu_target_phon}
+        outputDict['target_pcu_alignment'] = output_gpa
 
     elif(alignmentType == 'multi_graph'):
 
         assert target_graph != None and realised_graph != None and target_phon != None, "To use type \"multi\" both \"target_graph\", \"realised_graph\" and \"target_phon\" need to be specified."
 
         # ADAGT
-        align_target_graph, align_realised_graph = adagt.align(target_graph, realised_graph)
+        align_target_graph, align_realised_graph = adagt_punct.align(target_graph, realised_graph)
 
         # GPA
         pcu_target_graph, pcu_target_phon = gpa.align_word_and_phon_trans(target_graph, target_phon)
@@ -92,13 +99,29 @@ def run(args):
         # Combine output alignments from ADAGT and GPA
         multi_target_phon, multi_target_graph, multi_realised_graph = deduce_pcus_graph.computePCUs(align_target_graph, align_realised_graph, pcu_target_graph, pcu_target_phon, '*')
 
-        print(multi_target_phon, multi_target_graph, multi_realised_graph)
+        # print(multi_target_phon, multi_target_graph, multi_realised_graph)
+
+        output_adagt = {"align_target_graph": align_target_graph,
+                        "align_realised_graph": align_realised_graph}
+        
+        output_gpa = {"pcu_target_graph": pcu_target_graph,
+                      "pcu_target_phon": pcu_target_phon}
+
+        output_multi_graph = {"multi_target_phon": multi_target_phon,
+                              "multi_target_graph": multi_target_graph,
+                              "multi_realised_graph": multi_realised_graph}
+    
+        outputDict['adagt_alignment'] = output_adagt
+        outputDict['target_pcu_alignment'] = output_gpa
+        outputDict['output_multi_graph'] = output_multi_graph
+
+        # print(json.dumps(output_multi_graph))
         
     elif(alignmentType == 'multi_phon'):
 
         assert target_graph != None and target_phon != None and realised_phon != None, "To use type \"multi\" both \"target_graph\", \"target_phon\" and \"realised_phon\" need to be specified."
 
-        print(target_phon, realised_phon)
+        # print(target_phon, realised_phon)
         # ADAPT alignment
         align_target_phon_cgn2, align_realised_phon_cgn2, align_target_phon_adapt, align_realised_phon_adapt = run_adapt.reverse_align_two_phone_strings(target_phon, realised_phon)
 
@@ -108,10 +131,30 @@ def run(args):
         # Combine output alignments from ADAPT and GPA
         multi_target_phon, multi_target_graph, multi_realised_phon = deduce_pcus.computePCUs(align_target_phon_adapt, align_realised_phon_adapt, pcu_target_graph, pcu_target_phon, '*')
 
-        print(align_target_phon_cgn2, align_realised_phon_cgn2)
-        print(align_target_phon_adapt, align_realised_phon_adapt)
-        print(pcu_target_graph, pcu_target_phon)
-        print(multi_target_phon, multi_target_graph, multi_realised_phon)
+        # print(align_target_phon_cgn2, align_realised_phon_cgn2)
+        # print(align_target_phon_adapt, align_realised_phon_adapt)
+        # print(pcu_target_graph, pcu_target_phon)
+        # print(multi_target_phon, multi_target_graph, multi_realised_phon)
+
+        output_adapt = {"align_target_phon_cgn2": align_target_phon_cgn2,
+                        "align_realised_phon_cgn2": align_realised_phon_cgn2,
+                        "align_target_phon_adapt": align_target_phon_adapt,
+                        "align_realised_phon_adapt": align_realised_phon_adapt,
+                        }
+        
+        output_gpa = {"pcu_target_graph": pcu_target_graph,
+                      "pcu_target_phon": pcu_target_phon}
+        
+        output_multi_phon = {"multi_target_phon": multi_target_phon,
+                              "multi_target_graph": multi_target_graph,
+                              "multi_realised_phon": multi_realised_phon}
+                        
+        outputDict['adapt_alignment'] = output_adapt
+        outputDict['target_pcu_alignment'] = output_gpa
+        outputDict['output_multi_phon'] = output_multi_phon
+
+    # Return the output alignments as json object
+    print(json.dumps(outputDict))
 
 
 def main():
